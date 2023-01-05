@@ -1,8 +1,14 @@
-import { Options } from './internal';
-
-/**
- * Create a new SvelteKit project.
- * @param {string} cwd - Path to the directory to create
- * @param {import('./internal').Options} options
- */
-export function create(cwd: string, options: Options): Promise<void>;
+export type Context = {
+  cwd: string;
+  template: string;
+  root: boolean;
+  name: string;
+  scope?: string;
+  author?: {
+    email?: string;
+    name?: string;
+    url?: string;
+    [index: string]: any;
+  };
+  [index: string]: any;
+};

@@ -1,60 +1,99 @@
 #!/usr/bin/env node
-import fs from 'node:fs';
-import path from 'node:path';
-import { bold, cyan, gray, green } from 'kleur/colors';
-import prompts from 'prompts';
-import { create } from './index.js';
 
-const { version } = JSON.parse(fs.readFileSync(new URL('package.json', import.meta.url), 'utf-8'));
+/**
+ * @typedef {import('./types').Context} Context
+ */
+
+import fs from "node:fs";
+import path from "node:path";
+import { bold, cyan, gray, green } from "kleur/colors";
+
+import { prompt } from "./prompt.js";
+import { mkdirp } from "./utils.js";
+
+const { version } = JSON.parse(
+  fs.readFileSync(new URL("package.json", import.meta.url), "utf-8")
+);
 
 async function main() {
-	console.log(gray(`\ncreate-pkg version ${version}`));
+  console.log(gray(`\ncreate-pkg version ${version}`));
 
-	let cwd = process.argv[2] || '.';
+  const ctx = await prompt();
 
-	if (cwd === '.') {
-		const opts = await prompts([
-			{
-				type: 'text',
-				name: 'dir',
-				message: 'Where should we create your project?\n  (leave blank to use current directory)'
-			}
-		]);
+  mkdirp(ctx.cwd);
 
-		if (opts.dir) {
-			cwd = opts.dir;
-		}
-	}
+  const from = path.resolve(ctx.template);
+  const to = path.resolve(ctx.cwd);
 
-	if (fs.existsSync(cwd)) {
-		if (fs.readdirSync(cwd).length > 0) {
-			const response = await prompts({
-				type: 'confirm',
-				name: 'value',
-				message: 'Directory not empty. Continue?',
-				initial: false
-			});
+  walk(from, to, ctx);
 
-			if (!response.value) {
-				process.exit(1);
-			}
-		}
-	}
+  console.log(bold(green("\nYour project is ready!")));
+  console.log("\nNext steps:");
+  let i = 1;
 
-	await create(cwd, { name: path.basename(path.resolve(cwd))});
+  const relative = path.relative(process.cwd(), ctx.cwd);
+  if (relative !== "") {
+    console.log(`  ${i++}: ${bold(cyan(`cd ${relative}`))}`);
+  }
 
-	console.log(bold(green('\nYour project is ready!')));
-	console.log('\nNext steps:');
-	let i = 1;
-
-	const relative = path.relative(process.cwd(), cwd);
-	if (relative !== '') {
-		console.log(`  ${i++}: ${bold(cyan(`cd ${relative}`))}`);
-	}
-
-	console.log(`  ${i++}: ${bold(cyan('npm install'))} (or pnpm install, etc)`);
-	// prettier-ignore
-	console.log(`  ${i++}: ${bold(cyan('git init && git add -A && git commit -m "Initial commit"'))} (optional)`);
+  console.log(`  ${i++}: ${bold(cyan("npm install"))} (or pnpm install, etc)`);
+  // prettier-ignore
+  console.log(`  ${i++}: ${bold(cyan('git init && git add -A && git commit -m "Initial commit"'))} (optional)`);
 }
 
 main();
+
+/**
+ * @param {string} fromDir
+ * @param {string} toDir
+ * @param {Context} ctx
+ */
+function walk(fromDir, toDir, ctx) {
+  const files = fs.readdirSync(fromDir);
+
+  for (const file of files) {
+    const from = path.resolve(fromDir, file);
+    const to = path.resolve(toDir, file);
+    const stats = fs.lstatSync(from);
+
+    if (fs.existsSync(from) && stats.isFile()) {
+      if (path.basename(from) === ".gitkeep") continue;
+
+      let contents = fs.readFileSync(from, "utf-8");
+
+      // Replace template variables
+      if (ctx.scope) {
+        const scoped = `${ctx.scope}/${ctx.basename}`;
+        contents = contents.replace(/~UNSCOPED_PACKAGE_NAME~/g, ctx.basename);
+        contents = contents.replace(/~PACKAGE_NAME~/g, scoped);
+      } else {
+        contents = contents.replace(/~(?:UNSCOPED_)?PACKAGE_NAME~/g, ctx.name);
+      }
+      if (ctx?.author?.name) {
+        contents = contents.replace(/~AUTHOR_NAME~/g, ctx.author.name);
+      }
+
+      // Merge context settings with `package.json`
+      if (ctx.root && file === "package.json") {
+        const pkg = JSON.parse(contents);
+        if (ctx.author) {
+          pkg.author = {};
+          for (const [key, value] of Object.entries(ctx.author)) {
+            pkg.author[key] = value;
+          }
+        }
+        contents = JSON.stringify(pkg);
+      }
+
+      fs.writeFileSync(to, contents);
+
+      if (/#!\/bin\/bash/.test(contents)) {
+        fs.chmodSync(to, "755");
+      }
+    } else if (stats.isDirectory()) {
+      if (ctx.root) ctx.root = false;
+      mkdirp(to);
+      walk(from, to, ctx);
+    }
+  }
+}

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if ! [ -e ./temp/~TODO~.api.json ] ; then
+if ! [ -e ./temp/~UNSCOPED_PACKAGE_NAME~.api.json ] ; then
   echo "api.json file missing, building package..."
   ./scripts/build-pkg.sh
 fi

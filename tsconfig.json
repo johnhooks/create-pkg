@@ -1,13 +1,13 @@
 {
-	"compilerOptions": {
-		"allowJs": true,
-		"checkJs": true,
-		"noEmit": true,
-		"noImplicitAny": true,
-		"target": "esnext",
-		"module": "esnext",
-		"moduleResolution": "node",
-		"allowSyntheticDefaultImports": true
-	},
-	"include": ["./scripts/**/*", "./index.js", "./bin.js", "./utils.js"]
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "noImplicitAny": true,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["./bin.js", "./utils.js", "./types"]
 }

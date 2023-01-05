@@ -4,20 +4,20 @@
   "description": "Initialize a TypeScript package",
   "license": "MIT",
   "bin": "./bin.js",
-	"main": "./index.js",
-	"dependencies": {
-		"kleur": "^4.1.5",
-		"prompts": "^2.4.2"
-	},
-	"scripts": {
-		"check": "tsc"
-	},
+  "main": "./index.js",
+  "dependencies": {
+    "kleur": "^4.1.5",
+    "prompts": "^2.4.2"
+  },
+  "scripts": {
+    "check": "tsc"
+  },
   "files": [
-		"index.js",
-		"bin.js",
-		"utils.js",
-		"types"
-	],
-	"types": "types/index.d.ts",
-	"type": "module"
+    "index.js",
+    "bin.js",
+    "utils.js",
+    "types"
+  ],
+  "types": "types/index.d.ts",
+  "type": "module"
 }
