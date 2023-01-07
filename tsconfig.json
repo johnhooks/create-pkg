@@ -9,5 +9,5 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["./bin.js", "./utils.js", "./types"]
+  "include": ["./bin.js", "./lib"]
 }

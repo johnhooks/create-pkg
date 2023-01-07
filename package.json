@@ -1,6 +1,7 @@
 {
   "name": "@bitmachina/create-pkg",
   "version": "1.0.0-alpha.3",
+  "description": "Initialize a TypeScript package",
   "license": "MIT",
   "author": "John Hooks (https://johnhooks.io)",
   "homepage": "https://github.com/johnhooks/create-pkg",
@@ -10,12 +11,12 @@
   },
   "bugs": "https://github.com/johnhooks/create-pkg/issues",
   "type": "module",
-  "types": "types/index.d.ts",
+  "types": "lib/index.d.ts",
+  "bin": "./bin.js",
   "files": [
+    "lib/",
     "template/",
-    "types/",
-    "bin.js",
-    "utils.js"
+    "bin.js"
   ],
   "scripts": {
     "check": "tsc",
@@ -29,9 +30,6 @@
   "devDependencies": {
     "@types/node": "^18.11.18",
     "@types/prompts": "^2.4.2",
-    "prettier": "^2.8.2",
-
-  },
-  "bin": "./bin.js",
-  "description": "Initialize a TypeScript package"
+    "prettier": "^2.8.2"
+  }
 }
