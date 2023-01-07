@@ -87,10 +87,19 @@ export async function prompt() {
       message: `What should the name of the package be?`,
       initial: ctx.name,
     },
+    {
+      type: "text",
+      name: "repo",
+      message: `What should the repository url be?`,
+    },
   ]);
 
   if (options.name) {
     ctx.name = options.name;
+  }
+
+  if (options.repo) {
+    ctx.repo = options.repo;
   }
 
   const match = /^(@[\w_.-]+)\/(.*)$/.exec(options.name);

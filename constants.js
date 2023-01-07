@@ -1,0 +1,21 @@
+export const pkgOptions = {
+  useTabs: true,
+  keyOrder: [
+    "name",
+    "version",
+    "license",
+    "author",
+    "homepage",
+    "repository",
+    "bugs",
+    "type",
+    "sideEffects",
+    "exports",
+    "source",
+    "types",
+    "files",
+    "scripts",
+    "dependencies",
+    "devDependencies",
+  ],
+};

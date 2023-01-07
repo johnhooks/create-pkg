@@ -1,5 +1,5 @@
 #!/bin/bash
 
-echo "copying ./build/**/*.js to ./dist/esm/"
-mkdir -p dist/esm
+echo "copying ./build/**/*.js to ./dist"
+mkdir -p dist
 rsync -a --prune-empty-dirs --include '*/' --include '*.js' --exclude '*' build/ dist/

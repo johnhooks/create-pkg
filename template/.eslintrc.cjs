@@ -23,6 +23,12 @@ module.exports = {
 			},
 		],
 	},
+	overrides: [
+		{
+			files: ["**/?(*.)+(spec|test).ts"],
+			extends: ["plugin:testing-library/dom", "plugin:jest-dom/recommended"],
+		},
+	],
 	settings: {
 		"import/parsers": {
 			"@typescript-eslint/parser": [".ts"],

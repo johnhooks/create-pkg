@@ -7,9 +7,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import { bold, cyan, gray, green } from "kleur/colors";
+import { format as pkgFormat } from "prettier-package-json";
 
 import { prompt } from "./prompt.js";
 import { mkdirp } from "./utils.js";
+import { pkgOptions } from "./constants.js";
 
 const { version } = JSON.parse(
   fs.readFileSync(new URL("package.json", import.meta.url), "utf-8")
@@ -82,7 +84,16 @@ function walk(fromDir, toDir, ctx) {
             pkg.author[key] = value;
           }
         }
-        contents = JSON.stringify(pkg);
+        if (ctx.repo) {
+          const repo = ctx.repo.replace(/\.git$/, "");
+          pkg.homepage = `${repo}#readme`;
+          pkg.bugs = `${repo}/issues`;
+          pkg.repository = {
+            type: "git",
+            url: `${repo}.git`,
+          };
+        }
+        contents = pkgFormat(pkg, pkgOptions);
       }
 
       fs.writeFileSync(to, contents);
@@ -91,9 +102,8 @@ function walk(fromDir, toDir, ctx) {
         fs.chmodSync(to, "755");
       }
     } else if (stats.isDirectory()) {
-      if (ctx.root) ctx.root = false;
       mkdirp(to);
-      walk(from, to, ctx);
+      walk(from, to, { ...ctx, root: false });
     }
   }
 }

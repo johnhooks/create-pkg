@@ -4,6 +4,7 @@ export type Context = {
   root: boolean;
   name: string;
   scope?: string;
+  repo?: string;
   author?: {
     email?: string;
     name?: string;
