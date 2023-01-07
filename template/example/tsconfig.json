@@ -13,7 +13,11 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noImplicitReturns": true,
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"paths": {
+			"~PACKAGE_NAME~": ["../src/index"]
+		}
 	},
-	"include": ["src"]
+	"include": ["src"],
+	"references": [{ "path": "../src" }]
 }
