@@ -3,7 +3,10 @@
 	"version": "1.0.0-alpha.1",
 	"license": "MIT",
 	"type": "module",
+	"sideEffects": false,
 	"exports": "./dist/index.js",
+	"source": "src/index.ts",
+	"types": "dist/index.d.ts",
 	"files": [
 		"dist/"
 	],
@@ -23,8 +26,6 @@
 		"release": "shipjs prepare",
 		"test": "vitest run"
 	},
-	"sideEffects": false,
-	"types": "dist/index.d.ts",
 	"devDependencies": {
 		"@microsoft/api-documenter": "7.19.27",
 		"@microsoft/api-extractor": "7.33.7",
@@ -51,6 +52,5 @@
 		"typescript": "4.9.4",
 		"vite": "4.0.3",
 		"vitest": "0.25.8"
-	},
-	"source": "src/index.ts"
+	}
 }
