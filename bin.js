@@ -13,9 +13,7 @@ import { prompt } from "./prompt.js";
 import { mkdirp } from "./utils.js";
 import { pkgOptions } from "./constants.js";
 
-const { version } = JSON.parse(
-  fs.readFileSync(new URL("package.json", import.meta.url), "utf-8")
-);
+const { version } = JSON.parse(fs.readFileSync(new URL("package.json", import.meta.url), "utf-8"));
 
 async function main() {
   console.log(gray(`\ncreate-pkg version ${version}`));

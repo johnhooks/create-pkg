@@ -22,8 +22,7 @@ export async function prompt() {
       {
         type: "text",
         name: "dir",
-        message:
-          "Where should we create your project?\n  (leave blank to use current directory)",
+        message: "Where should we create your project?\n  (leave blank to use current directory)",
       },
     ]);
 
@@ -50,9 +49,7 @@ export async function prompt() {
   let npmConfig;
 
   try {
-    npmConfig = JSON.parse(
-      execSync("npm config list --json", { encoding: "utf-8" })
-    );
+    npmConfig = JSON.parse(execSync("npm config list --json", { encoding: "utf-8" }));
   } catch (_) {
     // pass
   }
