@@ -11,11 +11,11 @@
 		"dist/"
 	],
 	"scripts": {
-		"build": "./scripts/build-pkg.sh",
+		"build": "./scripts/build-pkg.js",
 		"build:all": "yarn build && yarn generate:docs",
 		"build:esm": "./scripts/esm.sh",
 		"build:tsc": "tsc --build ./src",
-		"build:types": "./scripts/build-types.sh",
+		"build:types": "./scripts/build-types.js",
 		"check": "tsc --build ./src && tsc --project ./tests",
 		"clean": "rimraf ./{dist,temp}",
 		"clean:all": "yarn clean && yarn clean:tsc",

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 echo "copying ./build/**/*.js to ./dist"
 mkdir -p dist
