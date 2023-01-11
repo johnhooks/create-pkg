@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 
 import path from "path";
-import * as url from "url";
+import { fileURLToPath } from "url";
 
 import { exec } from "./utils/exec.js";
 
-const apiExtractorPath = path.resolve(
-	url.fileURLToPath(new URL(".", import.meta.url)),
-	"../node_modules/.bin/api-extractor"
-);
+const rootDir = path.resolve(fileURLToPath(new URL(".", import.meta.url)), "../");
+
+const apiExtractorPath = path.join(rootDir, "node_modules/.bin/api-extractor");
 
 // Strip `--local` out. It will be configured only by this script.
 const args = process.argv.slice(2).filter((arg) => arg !== "--local");
