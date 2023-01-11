@@ -17,6 +17,7 @@
 		"build:esm": "./scripts/esm.js",
 		"build:tsc": "tsc --build ./src",
 		"build:types": "./scripts/build-types.js",
+		"build:website": "yarn --cwd ./website build",
 		"check": "tsc --build ./src && tsc --project ./tests",
 		"clean": "rimraf ./{dist,temp}",
 		"clean:all": "yarn clean && yarn clean:tsc",

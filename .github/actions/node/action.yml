@@ -1,4 +1,4 @@
-name: Build application
+name: Setup yarn
 
 runs:
   using: "composite"
@@ -30,20 +30,4 @@ runs:
 
     - name: Install Packages
       shell: bash
-      run: yarn install --frozen-lockfile
-
-    - name: Build application
-      shell: bash
-      run: yarn build
-
-    - name: Test application
-      shell: bash
-      run: yarn test
-
-    - name: Lint application
-      shell: bash
-      run: yarn lint
-
-    - name: Type check application
-      shell: bash
-      run: yarn run check
+      run: yarn install --frozen-lockfile && yarn --cwd ./website install --frozen-lockfile

@@ -5,8 +5,6 @@ build
 dist
 temp
 
-tests/fixtures
-
 .env
 .env.*
 !.env.example

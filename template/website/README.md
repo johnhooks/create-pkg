@@ -1,5 +1,5 @@
 <h1 align="center">
-  ~PACKAGE_NAME~ Example
+  ~PACKAGE_NAME~ Website
 </h1>
 
 ## ⚡️ Quick start

@@ -1,5 +1,5 @@
 {
-	"name": "~PACKAGE_NAME~-example",
+	"name": "~PACKAGE_NAME~-website",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",

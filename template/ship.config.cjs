@@ -1,4 +1,7 @@
 module.exports = {
+	// Override build command, using build artifacts from the github build action.
+	buildCommand: () => null,
+
 	publishCommand({ tag }) {
 		return `yarn publish --access public --tag ${tag}`;
 	},
