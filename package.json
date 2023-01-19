@@ -1,6 +1,6 @@
 {
   "name": "@bitmachina/create-pkg",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "Initialize a TypeScript package",
   "license": "MIT",
   "author": "John Hooks (https://johnhooks.io)",
