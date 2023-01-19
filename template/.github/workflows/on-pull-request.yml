@@ -8,15 +8,30 @@ on:
       - "**/*"
 
 env:
-  # Used by scripts/build-types.sh
   CI: true
 
 jobs:
   build:
-    uses: ./.github/workflows/build-pkg.yml
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js and Yarn
+        uses: ./.github/actions/node
+
+      - name: Build package
+        uses: ./.github/actions/build-pkg
 
   website:
     needs: build
-    uses: ./.github/workflows/build-website.yml
-    with:
-      environment: development
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js and Yarn
+        uses: ./.github/actions/node
+
+      - name: Build website
+        uses: ./.github/actions/build-website
