@@ -24,7 +24,7 @@ jobs:
 
       - name: Build website
         shell: bash
-        run: yarn build:website
+        run: yarn website:build
 
       # This action uploads an artifact named `github-pages` which will be used by actions/deploy-pages
       - name: Upload artifact
