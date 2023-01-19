@@ -20,6 +20,7 @@ env:
 jobs:
   build:
     uses: ./.github/workflows/build-pkg.yml
+    environment: production
 
   release:
     needs: build
